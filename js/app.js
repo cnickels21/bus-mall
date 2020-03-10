@@ -4,7 +4,8 @@ var imageElements = document.getElementsByClassName('clickers');
 var imageIndexOne = 0;
 var imageIndexTwo = 1;
 var imageIndexThree = 2;
-var rounds = 25;
+var rounds = 5;
+// var rounds = 25;
 var totalClicks = 0;
 var allImages = [];
 
@@ -14,13 +15,6 @@ function Image(name, imageUrl) {
     this.timesClicked = 0;
     this.timesShown = 0;
     allImages.push(this);
-}
-
-function getAllImages(propertyAnalyzed) {
-    var answer = [];
-    for (var k = 0; k < allImages.length; k++) {
-        
-    }
 }
 
 new Image('R2D2 Bag', 'images/bag.jpg');
@@ -49,6 +43,15 @@ console.log(allImages);
 allImages[0].timesShown = 1;
 allImages[1].timesShown = 1;
 allImages[2].timesShown = 1;
+
+function getAllImages(propertyAnalyzed) {
+    var answer = [];
+    for (var k = 0; k < allImages.length; k++) {
+        answer[k] = allImages[k][propertyAnalyzed];
+    }
+    console.log(answer);
+    return answer;
+}
 
 function clickedImage(event) {
     totalClicks++;
@@ -90,6 +93,7 @@ function clickedImage(event) {
     if (totalClicks >= rounds) {
         for (var j = 0; j < imageElements.length; j++) {
             imageElements[j].removeEventListener('click', clickedImage);
+            showMyChart();
         }
         var unorderedList = document.getElementById('results');
         for (var x = 0; x < allImages.length; x++) {
@@ -97,43 +101,7 @@ function clickedImage(event) {
             listItems.textContent = (allImages[x].name + ' had ' + allImages[x].timesClicked + ' votes and was shown ' + allImages[x].timesShown + ' times');
             unorderedList.appendChild(listItems);
 
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ,             //add function
-                    datasets: [{
-                        label: '# of Votes',
-                        data: ,            //add function
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }
-            });
+
 
             // var percentageLi = document.createElement('li');
             // percentageLi.textContent = (allImages[i].name + ' had a ');
@@ -144,4 +112,45 @@ function clickedImage(event) {
 
 for (var i = 0; i < imageElements.length; i++) {
     imageElements[i].addEventListener('click', clickedImage);
+}
+
+
+function showMyChart() {
+    var ctx = document.getElementById('show-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: getAllImages('name'),
+            datasets: [{
+                label: 'Number of Votes',
+                data: getAllImages('timesClicked'),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 }
