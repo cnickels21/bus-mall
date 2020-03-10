@@ -4,7 +4,8 @@ var imageElements = document.getElementsByClassName('clickers');
 var imageIndexOne = 0;
 var imageIndexTwo = 1;
 var imageIndexThree = 2;
-var rounds = 25;
+var rounds = 5;
+// var rounds = 25;
 var totalClicks = 0;
 var allImages = [];
 
@@ -18,8 +19,8 @@ function Image(name, imageUrl) {
 
 new Image('R2D2 Bag', 'images/bag.jpg');
 new Image('Banana Slicer', 'images/banana.jpg');
-new Image('TP Stand', 'images/bathroom.jpg');
 new Image('Mud Boots', 'images/boots.jpg');
+new Image('TP Stand', 'images/bathroom.jpg');
 new Image('Breakfast Appliance', 'images/breakfast.jpg');
 new Image('Meatball Bubblegum', 'images/bubblegum.jpg');
 new Image('Chair', 'images/chair.jpg');
@@ -36,6 +37,21 @@ new Image('Unicorn Meat', 'images/unicorn.jpg');
 new Image('Tentacle Usb', 'images/usb.gif');
 new Image('Water Can', 'images/water-can.jpg');
 new Image('Wine Glass', 'images/wine-glass.jpg');
+
+console.log(allImages);
+
+allImages[0].timesShown = 1;
+allImages[1].timesShown = 1;
+allImages[2].timesShown = 1;
+
+function getAllImages(propertyAnalyzed) {
+    var answer = [];
+    for (var k = 0; k < allImages.length; k++) {
+        answer[k] = allImages[k][propertyAnalyzed];
+    }
+    console.log(answer);
+    return answer;
+}
 
 function clickedImage(event) {
     totalClicks++;
@@ -77,16 +93,64 @@ function clickedImage(event) {
     if (totalClicks >= rounds) {
         for (var j = 0; j < imageElements.length; j++) {
             imageElements[j].removeEventListener('click', clickedImage);
+            showMyChart();
         }
         var unorderedList = document.getElementById('results');
         for (var x = 0; x < allImages.length; x++) {
             var listItems = document.createElement('li');
             listItems.textContent = (allImages[x].name + ' had ' + allImages[x].timesClicked + ' votes and was shown ' + allImages[x].timesShown + ' times');
             unorderedList.appendChild(listItems);
+
+
+
+            // var percentageLi = document.createElement('li');
+            // percentageLi.textContent = (allImages[i].name + ' had a ');
+            // unorderdList.appendChild(percentageLi);
         }
     }
 }
 
 for (var i = 0; i < imageElements.length; i++) {
     imageElements[i].addEventListener('click', clickedImage);
+}
+
+
+function showMyChart() {
+    var ctx = document.getElementById('show-chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: getAllImages('name'),
+            datasets: [{
+                label: 'Number of Votes',
+                data: getAllImages('timesClicked'),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 }
