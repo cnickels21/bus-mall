@@ -1,0 +1,75 @@
+body {
+    margin: 0 auto;
+    width: 1400px;
+    background-color: rgba(184, 134, 11, .5);
+    background: linear-gradient(90deg, rgba(184, 134, 11, 1) 0%, rgba(184, 134, 11, .5) 50%, rgba(184, 134, 11, .25) 100%)
+}
+
+header {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background-color: rgba(164, 164, 252, .5);
+    background: linear-gradient(90deg, rgba(164, 164, 252, .25) 0%, rgba(164, 164, 252, .5) 35%, rgba(164, 164, 252 ,1) 100%);
+    height: 150px;
+}
+
+header img {
+    float: left;
+    width: 200px;
+    height: 75px;
+    margin: 37px 37px 0px 30px;
+}
+
+h1 {
+    font-size: 52px;
+    padding-left: 30px;
+    margin-top: 45px;
+    vertical-align: middle;
+    display: inline-block;
+    color: rgb(21, 21, 77);
+    text-shadow: 1px 2px darkgoldenrod;
+}
+
+h2 {
+    font-size: 38px;
+    text-align: center;
+    margin-bottom: 30px;
+    text-decoration: rgb(21, 21, 77) underline;
+    color: rgb(21, 21, 77);
+}
+
+aside {
+    float: left;
+    width: 300px;
+    padding-top: 70px;
+}
+
+h3 {
+    font-size: 28px;
+    color: rgb(21, 21, 77);
+    text-decoration: rgb(21, 21, 77) underline;
+    margin-bottom: 15px;
+}
+
+li {
+    margin-bottom: 10px;
+    color: rgb(21, 21, 77);
+    font-size: 12px;
+}
+
+div {
+    display: inline-block;
+    width: 990px;
+    margin: 0 auto;
+}
+
+div img {
+    width: 300px;
+    height: 300px;
+    border: none;
+    padding-right: 30px;
+}
+
+#third-image {
+    padding-right: 0px;
+}
