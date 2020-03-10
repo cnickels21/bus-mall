@@ -1,6 +1,6 @@
 'use strict';
 
-var imageElements =  document.getElementsByClassName('clickers');
+var imageElements = document.getElementsByClassName('clickers');
 var imageIndexOne = 0;
 var imageIndexTwo = 1;
 var imageIndexThree = 2;
@@ -9,37 +9,39 @@ var totalClicks = 0;
 var allImages = [];
 
 function Image(name, imageUrl) {
-    this.name =  name;
+    this.name = name;
     this.imageUrl = imageUrl;
     this.timesClicked = 0;
     this.timesShown = 0;
     allImages.push(this);
 }
 
-new Image('Bag', 'images/bag.jpg');
-new Image('Banana', 'images/banana.jpg');
-new Image('Bathroom', 'images/bathroom.jpg');
-new Image('Boots', 'images/boots.jpg');
-new Image('Breakfast', 'images/breakfast.jpg');
-new Image('Bubblegum', 'images/bubblegum.jpg');
+new Image('R2D2 Bag', 'images/bag.jpg');
+new Image('Banana Slicer', 'images/banana.jpg');
+new Image('TP Stand', 'images/bathroom.jpg');
+new Image('Mud Boots', 'images/boots.jpg');
+new Image('Breakfast Appliance', 'images/breakfast.jpg');
+new Image('Meatball Bubblegum', 'images/bubblegum.jpg');
 new Image('Chair', 'images/chair.jpg');
 new Image('Cthulhu', 'images/cthulhu.jpg');
-new Image('Dog-Duck', 'images/dog-duck.jpg');
-new Image('Dragon', 'images/dragon.jpg');
-new Image('Pen', 'images/pen.jpg');
-new Image('Pet-Sweep', 'images/pet-sweep.jpg');
-new Image('Scissors', 'images/scissors.jpg');
+new Image('Doggy Duck Beak', 'images/dog-duck.jpg');
+new Image('Dragon Meat', 'images/dragon.jpg');
+new Image('Pen Utensils', 'images/pen.jpg');
+new Image('Pet Broom Boots', 'images/pet-sweep.jpg');
+new Image('Pizza Scissors', 'images/scissors.jpg');
 new Image('Shark', 'images/shark.jpg');
-new Image('Sweep', 'images/sweep.png');
-new Image('Tauntaun', 'images/tauntaun.jpg');
-new Image('Unicorn', 'images/unicorn.jpg');
-new Image('Usb', 'images/usb.gif');
-new Image('Water-Can', 'images/water-can.jpg');
-new Image('Wine-Glass', 'images/wine-glass.jpg');
+new Image('Baby Broom Onsey', 'images/sweep.png');
+new Image('Tauntaun Sleeping Bag', 'images/tauntaun.jpg');
+new Image('Unicorn Meat', 'images/unicorn.jpg');
+new Image('Tentacle Usb', 'images/usb.gif');
+new Image('Water Can', 'images/water-can.jpg');
+new Image('Wine Glass', 'images/wine-glass.jpg');
 
 function clickedImage(event) {
     totalClicks++;
-    if(event.srcElement.id === 'first-image') {
+
+   
+    if (event.srcElement.id === 'first-image') {
         allImages[imageIndexOne].timesClicked++;
         allImages[imageIndexOne].timesShown++;
     } else if (event.srcElement.id === 'second-image') {
@@ -49,6 +51,7 @@ function clickedImage(event) {
         allImages[imageIndexThree].timesClicked++;
         allImages[imageIndexThree].timesShown++;
     }
+
     var nextFirstImage = Math.floor(Math.random() * allImages.length);
     while ((nextFirstImage === imageIndexOne) || (nextFirstImage === imageIndexTwo) || (nextFirstImage === imageIndexThree) || (nextSecondImage === nextFirstImage) || (nextThirdImage === nextFirstImage)) {
         nextFirstImage = Math.floor(Math.random() * allImages.length);
@@ -72,15 +75,15 @@ function clickedImage(event) {
     imageElements[1].src = allImages[imageIndexTwo].imageUrl;
     imageElements[2].src = allImages[imageIndexThree].imageUrl;
 
-    console.log(imageIndexOne);
-
-    if(totalClicks >= rounds) {
-
-        var asideElement = document.getElementsByTagName('aside')[0];
-        asideElement.textContent = ``;
-
+    if (totalClicks >= rounds) {
         for (var j = 0; j < imageElements.length; j++) {
             imageElements[j].removeEventListener('click', clickedImage);
+        }
+        var unorderedList = document.getElementById('results');
+        for (var x = 0; x < allImages.length; x++) {
+            var listItems = document.createElement('li');
+            listItems.textContent = (this.name[x] + ' had ' + this.timesClicked[x] + ' votes and was shown ' + this.timesShown[x] + ' times');
+            unorderedList.appendChild(listItems);
         }
     }
 }
