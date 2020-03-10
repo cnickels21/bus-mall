@@ -40,16 +40,12 @@ new Image('Wine Glass', 'images/wine-glass.jpg');
 function clickedImage(event) {
     totalClicks++;
 
-   
     if (event.srcElement.id === 'first-image') {
         allImages[imageIndexOne].timesClicked++;
-        allImages[imageIndexOne].timesShown++;
     } else if (event.srcElement.id === 'second-image') {
         allImages[imageIndexTwo].timesClicked++;
-        allImages[imageIndexTwo].timesShown++;
     } else if (event.srcElement.id === 'third-image') {
         allImages[imageIndexThree].timesClicked++;
-        allImages[imageIndexThree].timesShown++;
     }
 
     var nextFirstImage = Math.floor(Math.random() * allImages.length);
@@ -72,8 +68,11 @@ function clickedImage(event) {
     imageIndexThree = nextThirdImage;
 
     imageElements[0].src = allImages[imageIndexOne].imageUrl;
+    allImages[imageIndexOne].timesShown++;
     imageElements[1].src = allImages[imageIndexTwo].imageUrl;
+    allImages[imageIndexTwo].timesShown++;
     imageElements[2].src = allImages[imageIndexThree].imageUrl;
+    allImages[imageIndexThree].timesShown++;
 
     if (totalClicks >= rounds) {
         for (var j = 0; j < imageElements.length; j++) {
@@ -82,7 +81,7 @@ function clickedImage(event) {
         var unorderedList = document.getElementById('results');
         for (var x = 0; x < allImages.length; x++) {
             var listItems = document.createElement('li');
-            listItems.textContent = (this.name[x] + ' had ' + this.timesClicked[x] + ' votes and was shown ' + this.timesShown[x] + ' times');
+            listItems.textContent = (allImages[x].name + ' had ' + allImages[x].timesClicked + ' votes and was shown ' + allImages[x].timesShown + ' times');
             unorderedList.appendChild(listItems);
         }
     }
