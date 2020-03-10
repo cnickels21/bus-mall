@@ -18,8 +18,8 @@ function Image(name, imageUrl) {
 
 new Image('R2D2 Bag', 'images/bag.jpg');
 new Image('Banana Slicer', 'images/banana.jpg');
-new Image('TP Stand', 'images/bathroom.jpg');
 new Image('Mud Boots', 'images/boots.jpg');
+new Image('TP Stand', 'images/bathroom.jpg');
 new Image('Breakfast Appliance', 'images/breakfast.jpg');
 new Image('Meatball Bubblegum', 'images/bubblegum.jpg');
 new Image('Chair', 'images/chair.jpg');
@@ -36,6 +36,12 @@ new Image('Unicorn Meat', 'images/unicorn.jpg');
 new Image('Tentacle Usb', 'images/usb.gif');
 new Image('Water Can', 'images/water-can.jpg');
 new Image('Wine Glass', 'images/wine-glass.jpg');
+
+console.log(allImages);
+
+allImages[0].timesShown = 1;
+allImages[1].timesShown = 1;
+allImages[2].timesShown = 1;
 
 function clickedImage(event) {
     totalClicks++;
@@ -83,6 +89,7 @@ function clickedImage(event) {
             var listItems = document.createElement('li');
             listItems.textContent = (allImages[x].name + ' had ' + allImages[x].timesClicked + ' votes and was shown ' + allImages[x].timesShown + ' times');
             unorderedList.appendChild(listItems);
+            
         }
     }
 }
