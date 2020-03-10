@@ -76,10 +76,11 @@ div img {
 }
 
 .chart {
-    width: 900px;
-    height: 400px;
-    margin-left: 90px;
+    width: 940px;
+    height: 450px;
+    /* margin-left: 90px; */
     margin-top: 30px;
+    padding: 10px;
 }
 
 footer {
