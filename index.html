@@ -14,30 +14,33 @@
 <body>
 
     <header>
-        <img src="images/bus-logo.jpg"/>
+        <img src="images/bus-logo.jpg" />
         <h1>Bus Mall Projections</h1>
     </header>
 
     <aside>
         <h3>Poll Results:</h3>
         <ul id="results">
-            
+
         </ul>
     </aside>
 
     <main>
-        <div>
+        <div class="images">
             <h2>Choose an item from the options below!</h2>
-            <img id="first-image" class="clickers" src="images/bag.jpg"/>
-            <img id="second-image" class="clickers" src="images/banana.jpg"/>
-            <img id="third-image" class="clickers" src="images/boots.jpg"/>
+            <img id="first-image" class="clickers" src="images/bag.jpg" />
+            <img id="second-image" class="clickers" src="images/banana.jpg" />
+            <img id="third-image" class="clickers" src="images/boots.jpg" />
+        </div>
+        <div class="chart">
+            <canvas id="show-chart" width="900" height="400"></canvas>
         </div>
     </main>
 
-    <canvas id="show-chart" width="400" height="400"></canvas>
+
 
     <footer>
-        
+
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
