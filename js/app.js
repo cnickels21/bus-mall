@@ -8,36 +8,59 @@ var rounds = 25;
 var totalClicks = 0;
 var allImages = [];
 
-function Image(name, imageUrl) {
+function Image(name, imageUrl, timesClicked, timesShown) {
     this.name = name;
     this.imageUrl = imageUrl;
+    if(timesClicked) {
+        this.timesClicked = timesClicked;
+    } else {
     this.timesClicked = 0;
+    }
+    if(timesShown) {
+        this.timesShown = timesShown;
+    } else {
     this.timesShown = 0;
+    }
     allImages.push(this);
 }
 
-new Image('R2D2 Bag', 'images/bag.jpg');
-new Image('Banana Slicer', 'images/banana.jpg');
-new Image('Mud Boots', 'images/boots.jpg');
-new Image('TP Stand', 'images/bathroom.jpg');
-new Image('Breakfast Appliance', 'images/breakfast.jpg');
-new Image('Meatball Bubblegum', 'images/bubblegum.jpg');
-new Image('Chair', 'images/chair.jpg');
-new Image('Cthulhu', 'images/cthulhu.jpg');
-new Image('Doggy Duck Beak', 'images/dog-duck.jpg');
-new Image('Dragon Meat', 'images/dragon.jpg');
-new Image('Pen Utensils', 'images/pen.jpg');
-new Image('Pet Broom Boots', 'images/pet-sweep.jpg');
-new Image('Pizza Scissors', 'images/scissors.jpg');
-new Image('Shark', 'images/shark.jpg');
-new Image('Baby Broom Onsey', 'images/sweep.png');
-new Image('Tauntaun Sleeping Bag', 'images/tauntaun.jpg');
-new Image('Unicorn Meat', 'images/unicorn.jpg');
-new Image('Tentacle Usb', 'images/usb.gif');
-new Image('Water Can', 'images/water-can.jpg');
-new Image('Wine Glass', 'images/wine-glass.jpg');
+// get items out of storage as objects
+// for loop to set them back as new Images to collect new data for future storage
 
-console.log(allImages);
+var savedImagesString = localStorage.getItem('savedImages');
+
+console.log(savedImagesString);
+
+if (savedImagesString) {
+    var stringedImagesArray = JSON.parse(savedImagesString);
+    for (var y = 0; y < stringedImagesArray.length; y++) {
+        new Image(stringedImagesArray[y].name,
+            stringedImagesArray[y].imageUrl,
+            stringedImagesArray[y].timesClicked,
+            stringedImagesArray[y].timesShown);
+    }
+} else {
+    new Image('R2D2 Bag', 'images/bag.jpg');
+    new Image('Banana Slicer', 'images/banana.jpg');
+    new Image('Mud Boots', 'images/boots.jpg');
+    new Image('TP Stand', 'images/bathroom.jpg');
+    new Image('Breakfast Appliance', 'images/breakfast.jpg');
+    new Image('Meatball Bubblegum', 'images/bubblegum.jpg');
+    new Image('Chair', 'images/chair.jpg');
+    new Image('Cthulhu', 'images/cthulhu.jpg');
+    new Image('Doggy Duck Beak', 'images/dog-duck.jpg');
+    new Image('Dragon Meat', 'images/dragon.jpg');
+    new Image('Pen Utensils', 'images/pen.jpg');
+    new Image('Pet Broom Boots', 'images/pet-sweep.jpg');
+    new Image('Pizza Scissors', 'images/scissors.jpg');
+    new Image('Shark', 'images/shark.jpg');
+    new Image('Baby Broom Onsey', 'images/sweep.png');
+    new Image('Tauntaun Sleeping Bag', 'images/tauntaun.jpg');
+    new Image('Unicorn Meat', 'images/unicorn.jpg');
+    new Image('Tentacle Usb', 'images/usb.gif');
+    new Image('Water Can', 'images/water-can.jpg');
+    new Image('Wine Glass', 'images/wine-glass.jpg');
+}
 
 allImages[0].timesShown = 1;
 allImages[1].timesShown = 1;
@@ -48,7 +71,6 @@ function getAllImages(propertyAnalyzed) {
     for (var k = 0; k < allImages.length; k++) {
         answer[k] = allImages[k][propertyAnalyzed];
     }
-    console.log(answer);
     return answer;
 }
 
@@ -90,16 +112,21 @@ function clickedImage(event) {
     allImages[imageIndexThree].timesShown++;
 
     if (totalClicks >= rounds) {
+
+        //set image objects into local storage here as strings
+        localStorage.setItem('savedImages', JSON.stringify(allImages));
+
+
         for (var j = 0; j < imageElements.length; j++) {
             imageElements[j].removeEventListener('click', clickedImage);
             showMyChart();
         }
+
         var unorderedList = document.getElementById('results');
         for (var x = 0; x < allImages.length; x++) {
             var listItems = document.createElement('li');
             listItems.textContent = (allImages[x].name + ' had ' + allImages[x].timesClicked + ' votes and was shown ' + allImages[x].timesShown + ' times.');
             unorderedList.appendChild(listItems);
-
 
             // CODE BELOW IS YET TO BE USED FOR PERCENTAGE DATA
             // var percentageLi = document.createElement('li');
