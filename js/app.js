@@ -62,9 +62,9 @@ if (savedImagesString) {
     new Image('Wine Glass', 'images/wine-glass.jpg');
 }
 
-allImages[0].timesShown = 1;
-allImages[1].timesShown = 1;
-allImages[2].timesShown = 1;
+allImages[0].timesShown++;
+allImages[1].timesShown++;
+allImages[2].timesShown++;
 
 function getAllImages(propertyAnalyzed) {
     var answer = [];
