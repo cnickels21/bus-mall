@@ -10,4 +10,4 @@ The application also uses local storage to save the results from prior voting se
 
 Thank you Craig and Ian for your persistence and ability to see us through our problems.
 
-I used a line of code from https://cssgradient.io/ for the header background fade.
+

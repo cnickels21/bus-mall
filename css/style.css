@@ -1,3 +1,5 @@
+/* Line of code from https://cssgradient.io/ used for background gradients. */
+
 body {
     margin: 0 auto;
     width: 1400px;
@@ -84,9 +86,11 @@ div img {
 
 footer {
     text-align: center;
+    font-size: 20px;
+    color: rgb(21, 21, 77);
+    line-height: 1.2em;
+    padding-top: 30px;
     margin: 60px 0px 30px 0px;
     height: 100px;
     background-color: rgba(164, 164, 252, .5);
-    /* might use gradient below, undecided so far */
-    /* background: linear-gradient(90deg, rgba(164, 164, 252, .25) 0%, rgba(164, 164, 252, .5) 35%, rgba(164, 164, 252 , .75) 100%); */
 }

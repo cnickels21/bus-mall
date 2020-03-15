@@ -1,5 +1,7 @@
 'use strict';
 
+// Global variables used in multiple places throughout script
+
 var imageElements = document.getElementsByClassName('clickers');
 var imageIndexOne = 0;
 var imageIndexTwo = 1;
@@ -8,28 +10,28 @@ var rounds = 25;
 var totalClicks = 0;
 var allImages = [];
 
+// Constructor function used to create interactive images on our page
+
 function Image(name, imageUrl, timesClicked, timesShown) {
     this.name = name;
     this.imageUrl = imageUrl;
-    if(timesClicked) {
+    if(timesClicked) {          // Used to layover previous data stored in local storage
         this.timesClicked = timesClicked;
-    } else {
+    } else {                    // Used if there is no local storage data
     this.timesClicked = 0;
     }
-    if(timesShown) {
+    if(timesShown) {            // Same method as times clicked is used here
         this.timesShown = timesShown;
     } else {
     this.timesShown = 0;
     }
-    allImages.push(this);
+    allImages.push(this);       // Populates the empty array for use in other functions
 }
 
-// get items out of storage as objects
+// get items out of storage and turn them back into objects not strings
 // for loop to set them back as new Images to collect new data for future storage
 
 var savedImagesString = localStorage.getItem('savedImages');
-
-console.log(savedImagesString);
 
 if (savedImagesString) {
     var stringedImagesArray = JSON.parse(savedImagesString);
@@ -39,7 +41,7 @@ if (savedImagesString) {
             stringedImagesArray[y].timesClicked,
             stringedImagesArray[y].timesShown);
     }
-} else {
+} else {        // Creates our objects if no local storage exists
     new Image('R2D2 Bag', 'images/bag.jpg');
     new Image('Banana Slicer', 'images/banana.jpg');
     new Image('Mud Boots', 'images/boots.jpg');
@@ -62,10 +64,12 @@ if (savedImagesString) {
     new Image('Wine Glass', 'images/wine-glass.jpg');
 }
 
+// Adds 1 to the images that are shown on initial loading of the page
 allImages[0].timesShown++;
 allImages[1].timesShown++;
 allImages[2].timesShown++;
 
+// Function used to generate the individual data for the chart
 function getAllImages(propertyAnalyzed) {
     var answer = [];
     for (var k = 0; k < allImages.length; k++) {
@@ -74,9 +78,12 @@ function getAllImages(propertyAnalyzed) {
     return answer;
 }
 
+// Event listener function
 function clickedImage(event) {
-    totalClicks++;
 
+    totalClicks++; // Increment to limit the number of rounds in voting
+
+    // Incrementation of individual object's times clicked when voted on
     if (event.srcElement.id === 'first-image') {
         allImages[imageIndexOne].timesClicked++;
     } else if (event.srcElement.id === 'second-image') {
@@ -85,6 +92,7 @@ function clickedImage(event) {
         allImages[imageIndexThree].timesClicked++;
     }
 
+    /* These 3 while loops generate the logic that guarantees no two images will appear twice in a row.  Creates a random generation of options to  be voted on */
     var nextFirstImage = Math.floor(Math.random() * allImages.length);
     while ((nextFirstImage === imageIndexOne) || (nextFirstImage === imageIndexTwo) || (nextFirstImage === imageIndexThree) || (nextSecondImage === nextFirstImage) || (nextThirdImage === nextFirstImage)) {
         nextFirstImage = Math.floor(Math.random() * allImages.length);
@@ -99,11 +107,12 @@ function clickedImage(event) {
     while ((nextThirdImage === imageIndexThree) || (nextThirdImage === imageIndexOne) || (nextThirdImage === imageIndexTwo) || (nextThirdImage === nextFirstImage) || (nextThirdImage === nextSecondImage)) {
         nextThirdImage = Math.floor(Math.random() * allImages.length);
     }
-
+    // Used in logic above to generate random selections
     imageIndexOne = nextFirstImage;
     imageIndexTwo = nextSecondImage;
     imageIndexThree = nextThirdImage;
 
+    // Increments times shown for each image that appears in the voting process
     imageElements[0].src = allImages[imageIndexOne].imageUrl;
     allImages[imageIndexOne].timesShown++;
     imageElements[1].src = allImages[imageIndexTwo].imageUrl;
@@ -111,36 +120,34 @@ function clickedImage(event) {
     imageElements[2].src = allImages[imageIndexThree].imageUrl;
     allImages[imageIndexThree].timesShown++;
 
+    // Ends voting when total clicks reaches the set amount of rounds
     if (totalClicks >= rounds) {
 
         //set image objects into local storage here as strings
         localStorage.setItem('savedImages', JSON.stringify(allImages));
 
-
+        // Removes event listener at the end of the voting process
         for (var j = 0; j < imageElements.length; j++) {
             imageElements[j].removeEventListener('click', clickedImage);
             showMyChart();
         }
 
+        // Renders our list to the page after voting has ended
         var unorderedList = document.getElementById('results');
         for (var x = 0; x < allImages.length; x++) {
             var listItems = document.createElement('li');
             listItems.textContent = (allImages[x].name + ' had ' + allImages[x].timesClicked + ' votes and was shown ' + allImages[x].timesShown + ' times.');
             unorderedList.appendChild(listItems);
-
-            // CODE BELOW IS YET TO BE USED FOR PERCENTAGE DATA
-            // var percentageLi = document.createElement('li');
-            // percentageLi.textContent = (allImages[i].name + ' had a ');
-            // unorderdList.appendChild(percentageLi);
         }
     }
 }
 
+// Event listener is created here to be called when the voting begins
 for (var i = 0; i < imageElements.length; i++) {
     imageElements[i].addEventListener('click', clickedImage);
 }
 
-
+// Function to create and render the chart based on our data
 function showMyChart() {
     var ctx = document.getElementById('show-chart').getContext('2d');
     var myChart = new Chart(ctx, {
