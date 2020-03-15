@@ -18,7 +18,7 @@
         <h1>Bus Mall Projections</h1>
     </header>
 
-    <aside>
+    <aside>  <!--List renders after voting in this aside element-->
         <h3>Poll Results:</h3>
         <ul id="results">
 
@@ -26,24 +26,22 @@
     </aside>
 
     <main>
-        <div class="images">
+        <div class="images"> <!--Block element for image display-->
             <h2>Choose an item from the options below!</h2>
             <img id="first-image" class="clickers" src="images/bag.jpg" />
             <img id="second-image" class="clickers" src="images/banana.jpg" />
             <img id="third-image" class="clickers" src="images/boots.jpg" />
         </div>
-        <div class="chart">
-            <canvas id="show-chart" width="900" height="400"></canvas>
+        <div class="chart">  <!--Block element for our chart to render in-->
+            <canvas id="show-chart"></canvas>
         </div>
     </main>
-
-
 
     <footer>
         Thank you for your time.<br/>This project and your opinions mean a lot to us.
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script> <!--CDN linked in for chart creation-->
     <script src="js/app.js"></script>
 
 </body>

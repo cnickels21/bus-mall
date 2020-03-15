@@ -1,4 +1,8 @@
-/* Line of code from https://cssgradient.io/ used for background gradients. */
+/* Line of code from https://cssgradient.io/ used for background gradients.
+    Most of this CSS is spacing elements and creating the overall color scheme.
+    Some centering and alignment handled here as well.
+    Making the page pretty!
+*/
 
 body {
     margin: 0 auto;
